@@ -62,13 +62,19 @@
                 },
                 formatUpdated: '{MM}/{DD} {HH}:{mm}',
                 plugins: [
+//                            https://raw.githubusercontent.com/docsifyjs/docs-ru/master/README.md
+//                            https://github.com/evenfound/even-doc/tree/master/docs-ru/
                     function (hook, vm) {
                         hook.beforeEach(function (html) {
                             console.log(vm.route.file);
                             if (/githubusercontent\.com/.test(vm.route.file)) {
+//                                url = vm.route.file
+//                                        .replace('raw.githubusercontent.com', 'github.com')
+//                                        .replace(/\/master/, '/blob/master')
                                 url = vm.route.file
-                                        .replace('raw.githubusercontent.com', 'github.com')
-                                        .replace(/\/master/, '/blob/master')
+                                    .replace('raw.githubusercontent.com', 'github.com')
+                                    .replace('docsifyjs', 'evenfound/even-doc/tree/master')
+                                    .replace(/\/master/, '')                               
                                 console.log("1:" + url);
                             } else {
                                 url = 'https://github.com/evenfound/even-doc/blob/master/docs/' + vm.route.file
