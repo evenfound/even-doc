@@ -5,4 +5,4 @@
 
 ## Community
 
-Users and the development team are usually in the [](https://github.com/evenfound).
+Users and the development team are usually in the [GitHub](https://github.com/evenfound).
