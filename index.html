@@ -6,11 +6,13 @@
         <title>EVEN Pages</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="stylesheet" href="lib/themes/vue.css" title="vue">
-        <link rel="stylesheet" href="lib/themes/dark.css" title="dark" disabled>
-        <link rel="stylesheet" href="lib/themes/buble.css" title="buble" disabled>
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <link rel="stylesheet" href="lib/themes/site.css" title="pure" disabled>
+        <!--        <link rel="stylesheet" href="lib/themes/vue.css" title="vue">
+                <link rel="stylesheet" href="lib/themes/dark.css" title="dark" disabled>
+                <link rel="stylesheet" href="lib/themes/buble.css" title="buble" disabled>
+                <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+                <link rel="stylesheet" href="lib/themes/site.css" title="pure" disabled>-->
+        <!-- Theme: Simple (latest v0.x.x) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
         <style>
             nav.app-nav li ul {
                 min-width: 100px;
@@ -52,6 +54,10 @@
                         '/de-de/': 'Suche',
                         '/zh-cn/': '搜索',
                         '/': 'Search'
+                    },
+                    themeable: {
+                        readyTransition: true, // default
+                        responsiveTables: true  // default
                     }
                 },
                 formatUpdated: '{MM}/{DD} {HH}:{mm}',
@@ -78,6 +84,8 @@
             }
         </script>
         <script src="/lib/docsify.js"></script>
+        <!-- docsify-themeable (latest v0.x.x) -->
+        <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
         <script src="/lib/plugins/search.js"></script>
         <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
         <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
