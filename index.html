@@ -25,12 +25,12 @@
             window.$docsify = {
                 alias: {
                     '.*?/awesome': 'https://github.com/evenfound/even-doc/README.md',
-                    '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
+//                    '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
                     '/.*/_navbar.md': '/_navbar.md',
-                    '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
-                    '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
-                    '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
-                    '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
+//                    '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+//                    '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
+                    '/ru/(.*)': 'https://github.com/evenfound/even-doc/blob/master/$1',
+//                    '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
                 },
                 auto2top: true,
                 basePath: '/docs/',
@@ -77,12 +77,8 @@
 
                             return editHtml
                                     + html
-                                    + '\n\n----\n\n'
-                                    + '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
-
-//                            var editHtml = '[:memo: Edit Document](' + 'https://github.com/evenfound/even-doc/blob/master/' + vm.route.file + ')\n'
-//                            return editHtml 
-//                                    + html;
+//                                    + '\n\n----\n\n'
+//                                    + '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
                         })
                     },
                 ]
