@@ -1,6 +1,6 @@
 # EVEN network basic protocol
 
-## 1.1. Technology choice
+## Technology choice
 
 The basis for the stable functioning of a distributed network is a logically coherent protocol that enables three essential tasks to be solved: protection of confidentiality, distribution and storage of data. In historical terms, trust in products or services is earned in the course of their lifetime. Physical or electronic records accompany every object and confirm its origin, purpose, quantity and history. Creation, support and confirmation of all this information adds a significant 'trust tax', as expressed in the man hours expended by banks, accountants, lawyers, auditors and control services quality among others control services. At the same time, important information is frequently lost, becomes inaccessible or occasionally deliberately hidden.
 
@@ -67,7 +67,7 @@ A local file may be added to IPFS file system, which makes it accessible to the 
 
 From the technology definition, especially with reference to forming DAG graphs, and it really does use the DAG algorithm, we can easily understand the proximity of the technologies and and opportunity for their blending when implementing the properties needed for the basic protocol.
 
-## 1.2 Possibility levels of client applications and the subnet
+## Possibility levels of client applications and the subnet
 
 Let us first of all add some details on how EVEN network basic protocol works using IPFS and how virtual voting occurs.
 
@@ -85,7 +85,7 @@ Bearing in mind the main advantage of DLT — the speed of carrying out transact
 
 The node service that performs the network's needs as effectively as it can, and which thus supports its stability and productivity, factoring in its steadily rising ranking (see above) is ranked in the first lines in the mailing list. Correspondingly, using the same algorithm, this service forms its own mailing list, the top of which includes services that are equally effective. Thus, since the ranking is changeable, the network dynamically forms a virtual subnetwork of effective services, on the basis of whose votes quicker virtual voting can be constructed. The key word here is **_dynamic_**. The network for preventing the monopolisation of consensus should automatically control the balance of the participants of leader subnetworks.
 
-## 1.3 The algorithm for the ranking calculation and a few simple formulae
+## The algorithm for the ranking calculation and a few simple formulae
 
 The algorithm for the ranking calculation has a synthetic character and its main purpose is the dynamic ranking calculation of the node service with a simultaneous compensating this calculation under technical and information indicators.
 
@@ -170,7 +170,7 @@ If we depict the graph another way:
 you can see the average calculation of the ranking value as an average value of indicators K and S on the synthetic curve of the values.
 (The original application for demonstrating how the algorithm works can be downloaded from GitHub repository https://github.com/evenfound/even-network/tree/master/r-score-demo).
 
-## 1.4. Structure of transactions and messages
+## Structure of transactions and messages
 
 Let us turn to classic examples for understanding the information assets transmitting process in a basic protocol. Alice has the initial number A_SECRET_SEED, which contains 100 units in 4 different addresses, and the total balances provide this value:
 
