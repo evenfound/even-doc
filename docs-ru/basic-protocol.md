@@ -16,100 +16,98 @@
 
 ![Screenshot](/_images/1.png)
  
-In the DAG model (Directed Acyclic Graph) each transaction is immediately added to a graph compiled from many transactions recorded not consecutively, but simultaneously. Here there are no blocks, and therefore there are no problems with size.
+В модели DAG - направленный ацикличный граф (от английского Directed Acyclic Graph) каждая транзакция сразу же добавляется в такой граф, состоящий из множества транзакций, записывающихся не последовательно, а одновременно. Здесь нет блоков, поэтому нет и проблем с его размером.
 
 ![Screenshot](/_images/2.png)
 
-Within this structure users themselves support the network. Before sending a transaction no fewer than one and generally two preceding transactions need to be confirmed. That is exactly why there are no miners or masternodes here.
+В такой структуре пользователи сами обслуживают сеть. Прежде, чем отправить какую-либо транзакцию, необходимо подтвердить не менее одной, а чаще две предыдущих. Именно поэтому здесь нет майнеров и мастернод.
 
-The advantages of this solution:
+Преимущества такого решения:
+- Быстрота выполнения транзакций
+- Нет комиссий (или они мизерны)
+- Более масштабируем по сравнению с блокчейн.
 
-- transactions speed
-- no commission (or minute)
-- more scalable compared to blockchain.
+Однако видимые преимущества данной модели в чистом виде компенсируются следующими недостатками:
 
-However, the obvious advantages of this model are per se offset by the following shortcomings:
-DAG shortcomings:
+- Проблемы с масштабируемостью (необходимо синхронизировать блокчейн каждый раз при добавлении новой транзакции).
+- При малом количестве участников сети, транзакции могут подтверждаться длительное время, а при их отсутствии вообще никогда не быть подтвержденными.
 
-- Scalability issues (blockchain needs to be synchronised each time when adding a new transaction).
-- With few network participants transactions confirmation can take long, and if there are none they may not be confirmed at all.
+Имеющиеся недостатки, как показала практика эксплуатации подобного рода сетей, наносят тяжелый урон завоеваниям блокчейн технологий, и речь здесь идет о децентрализации. Например в IOTА, для управления всеми ветвлениями Tangle используется нода Coordiantor, которая по сути является сервером валидации. 
 
-The existing shortcomings, as practice has shown, seriously undermine the advantages of blockchain technology when it comes to decentralization. For instance, in IOTA the Coordinator node is used to manage Tangle forks, and is essentially a validation server. 
+Есть ли пути решить эту проблему и каким-то изящным способом устранить имеющиеся недостатки и превратить их в достоинство?
 
-Are there ways to solve this problem and somehow elegantly remove the existing shortcomings and make a virtue of them?
+Анализ существующих подходов в реализации DLT и алгоритма DAG - в частности, позволил предположить, что такое решение есть. При изучении изображений графов транзакций, например сети IOTA,  нетрудно заметить, что временная ось эволюции графа направлена справа налево. Да, так и должно быть:  граф направленный и ациклический, новая транзакция является контентно ориентированным сообщением и в силу этого факта, не ведая своего места в топологии сети, вынуждена уповать на “милость” координатора. И если её не дождаться (а так бывает), транзакция может и не подтвердиться. 
 
-Analysis of existing approaches in implementing DLT and the DAG algorithm in particular suggests that there is such a solution. When studying for example IOTA network transaction graphs, it is easy to see that the graph's evolution time axis is directed from right to left. As it should be.  the graph is directed and acyclic, a new transaction is a content-oriented message and thus does not know its place within the network's topology and hope for the good will of the coordinator. If it does not work out (as often happens), the transaction may not be confirmed at all. 
+Наше решение, которое позволило изменить направление времени эволюции в DAG и добиться максимальной децентрализации,  это переопределение сущности транзакции из контентно в топологически ориентированную и использование алгоритма подсчета рейтинга. При этом все преимущества модели сохраняются в полном объеме.
 
-Our solution allows change the evolution time direction in DAG and get maximum decentralization, shifts the transaction from content-oriented to topological-oriented and uses ranking algorithm. At the same time all the model's advantages are fully present.
+**В чем сущность модернизации?**
 
-**What is the essence of modernization?**
+*1. Так же, как и в классическом DAG, новое сообщение, которое похожим образом формируется из цепочки связанных транзакций со ссылками на хеш заголовки своих транзакций в качестве trunk ветки, представляющие баланс , и в качестве brunch - ссылки от одной до нескольких связанных в сообщения транзакций, которые нода получила для валидации в приватном разделе входящих распределенного хранилища;*
 
-*1. Just as in classical DAG, a new message that in much the same way is formed from a chain of connected transactions with links to hash headings of their transactions as a trunk fork, providing balance, and as brunch links from one of several transactions connected in the message which the node has obtained for validation in the private inbox of the distributed storage;*
+*2. Используя алгоритм подсчета рейтинга, который будет описан ниже, нода формирует список рассылки двух вариантов передач: в первом случае своего сообщения с необходимыми привязками  к графу trunk и brunch,  и во втором - передачу полученных сообщений с признаком валидации после проведенной работы по их проверке с использованием алгоритма МАМ;*
 
-*2. Using the ranking algorithm described below, the node forms a list of two versions of the transmission: in the first instance with the necessary binds to the trunk and brunch graph, and in the second it sends the MAM algorithm validated messages;*
+*3. Нода может быть пассивной и ничего не делать - не проводить работу по валидации и транслировать сообщения, но тогда это отразится на её рейтинге, и чтобы осуществить собственные транзакции по переводу средств, ей придется заплатить некоторую комиссию за предоставление сетью необходимого пакета сообщений для валидации.*
 
-*3. The node may be passive and not do anything, neither in validating and processing messages, but then this will affect its ranking, and in order to implement its own processing transactions it will have to pay a commission for the network to provide the necessary validation message packet.*
+Здесь возникает вопрос: каким образом решается вопрос создания топологии в криптозащищенной децентрализованной сети? Как контентно-ориентированные сообщения переходят в разряд адресных посылок без потери конфиденциальности?
 
-Here the question arises: how to create topologies in a crypto-protected decentralized network? How can content-oriented messages become the addressed parcel keeping confidentiality?
+Решения  этой проблемы представляется возможным с использованием в базовом протоколе технологии IPFS. Термин «децентрализация» приобрел новое значение с приходом эры криптовалют и технологии блокчейн. Появилось множество новых проектов, аналогов которым просто не существует. Interplanetary File System (IPFS) — это один из характерных примеров. В чем особенность новой технологии и какие возможности она открывает? 
 
-This problem can be solved using the basic IPFS protocol. The term 'decentralisation' has acquired a new meaning with the advent of crypto-currencies and blockchain technology. There emerged many new projects that simply have no equivalents. The InterPlanetary File System (IPFS) is one illustrative example. What are the features of the new technology and what opportunities does it open up? 
+IPFS объединяет в себе шардинг и децентрализованное хранение файлов. Да, большое количество компанией занимается разработкой решений для хранения файлов по частям, в частности, Sia и поддерживаемый корпорацией Google Storj. Однако IPFS работает по другому принципу, наиболее точно воплощая в жизнь симбиоз этих технологий.
 
-IPFS combines sharding and decentralised file storage. Yes, many companies are developing solutions for file storage, in particular through Sia and supported by Google Storj. However, IPFS works under a different principle, more precisely bringing about a symbiosis of these technologies.
+Проект начинался как протокол в сети Эфириум в 2016 году. Был выбран именно этот блокчейн из-за большей дружелюбности по отношению к новшествам и инновациям. Биткоин подобным похвастаться не мог. Насколько мудрым было это решение, неясно до сих пор.
 
-The project started as a protocol in Ethereum in 2016. This blockchain that was selected because it is friendly to new developments and innovations. Bitcoin could not boast of anything similar. How wise this decision was remains unknown for now.
+Из определения в Wiki мы получаем ответ на главный вопрос: IPFS представляет собой одноранговую распределенную файловую систему, которая соединяет все вычислительные устройства единой системой файлов. В некотором смысле IPFS схожа со всемирной паутиной. IPFS можно представить как единый BitTorrent-рой, обменивающийся файлами единого Git-репозитория. Иными словами, IPFS обеспечивает контентно-адресуемую модель блочного хранилища с контентно-адресуемыми гиперссылками и высокую пропускную способность. **_Это формирует обобщенный древовидный направленный граф._** IPFS сочетает в себе распределенную хэш-таблицу, децентрализованный обмен блоками, а также самосертифицирующееся пространство имён. При этом IPFS не имеет точек отказа, и узлы не обязаны доверять друг другу. Доступ к файловой системе может быть получен различными способами:
 
-A Wiki definition provides the answer to the main question: IPFS is a peer-to-peer distributed file system that connects all computing devices as a single system of files. In a sense the IPFS is similar to the World Wide Web. IPFS could be seen as a single BitTorrent swarm, exchanging objects within one Git repository. In other words, IPFS provides a high-throughput, content-addressed block storage model, with content-addressed hyperlinks. **_This forms a generalized directed tree graph._** IPFS combines a distributed hash table, a decentralised block exchange and also a self-certifying namespace. At the same time IPFS does not have a point of failure, and the nodes do not have to trust each other. The filesystem can be accessed in a variety of ways, including
+- через FUSE
+- поверх HTTP.
 
-- via FUSE and
-- over HTTP.
+Локальный файл может быть добавлен в файловую систему IPFS, что делает его доступным всему миру. Файлы идентифицируются по их мультихэшам, что упрощает кэширование. Они распространяются через протокол, основанный на протоколе BitTorrent. Пользователи, просматривающие контент, помогают в доставке контента для других пользователей сети. IPFS имеет сервис имён под названием IPNS, глобальное пространство имен на основе открытых ключей, совместимое с другими пространствами имён и имеющее возможность интегрировать DNS, .onion, .bit и т. д. в IPNS.
 
-A local file may be added to IPFS file system, which makes it accessible to the whole world. Files are identified by their multihashes, which makes caching easier. They are distributed through a protocol based on BitTorrent protocol. Users browsing through content help other network users access content. IPFS has a name service called IPNS, a global namespace based on open keys that is compatible with other namespaces and DNS, onion, bit etc. into the IPNS.
+Из определения технологии, особенно в части формирования DAG графов, а она действительно использует алгоритм DAG, нетрудно заметить родственность  технологии и возможность их симбиоза в части реализации необходимых для базового протокола свойств.
 
-From the technology definition, especially with reference to forming DAG graphs, and it really does use the DAG algorithm, we can easily understand the proximity of the technologies and and opportunity for their blending when implementing the properties needed for the basic protocol.
+## Уровни возможностей клиентских приложений и подсети.
 
-## Possibility levels of client applications and the subnet
+Сначала добавим подробностей о том, как работает базовый протокол сети EVEN с использованием IPFS и как происходит виртуальное голосование.
 
-Let us first of all add some details on how EVEN network basic protocol works using IPFS and how virtual voting occurs.
+Каждое клиентское приложение (node service), которое подключается к сети EVEN, идентифицируется в сети IPFS уникальным хеш адресом, который она же и предоставляет. У каждого сервиса существует локальное хранилище, разбитое на два раздела - inbox и outbox, которые также уникально идентифицируются хешем как конфиденциальные, но при этом являются физически расположенными на хосте сервиса. 
 
-Each client application (node service) connected to EVEN network is identified in the IPFS network by a unique hash address supplied by it. Each server has local storage divided into two sections — inbox and outbox — which are also uniquely identified by a hash as confidential, but at the same time they are physically situated on the service host. 
+В режиме трансляции сервис, работающий в нормальном режиме, получает в раздел inbox очередь сообщений, требующих подтверждения. Не вдаваясь в подробности криптографии, о которой речь пойдет ниже, сервис проводит работу по подтверждению полученных сообщений, помечает их валидацию своим nonce по алгоритму HashCach и своим IPFS хеш адресом, и переносит их в раздел outbox. Ту же самую операцию производят остальные сервисы сети, получившие аналогичные пакеты. Но перед тем, как это осуществить, каждый сервис производит рассылку полученных в inbox сообщений адресатам, в очередности, построенной после оценки рейтинга видимых сервисов и необходимостью их посылки, то-есть реализуя протокол Gossip - нужна или не нужна данному сервису эта информация. Это достигается проверкой наличия хеша  сообщения в inbox адресата. Таким образом с большой скоростью происходит заполнение распределенного хранилища валидированными сообщениями.
 
-When processing, the server working in normal operation receives in its inbox a series of messages requiring confirmation. Without going into the details of cryptography, which will be discussed below, the service confirms the received messages, marks their validation with its nonce under the HashCach algorithm and its IPFS hash address, and transfers them to the outbox. The same operation is carried out by the other network services that have received the same packets. But before this can be done, each service sends out messages from its inbox to addressees in an order of priority structured after asessing the ranking of visible services, and the need to send them, in other words implementing the Gossip protocol, whether the service needs this information or not. This is achieved by checking whether there is a hash message in the addressee's inbox. This is how the distribution storage is filled with validated messages at such speed.
+В режиме создания собственных транзакций последовательность операций тот же, за исключением того, что сервис кроме валидации полученных в inbox сообщений, формирует свое, с указанием ссылок на trunk - ссылку на последнюю входящую в свой адрес транзакцию и её предыдущие для представления баланс, и branch - от одной до нескольких ссылок на подтвержденные сообщения из inbox.
 
-When creating its own transactions, the sequence of operations remains the same except that the service, in addition to validating the inbox messages, forms its own, indicating the trunk links, a link to the last incoming transaction and the previous one for balance, and branch from one to several links confirming the inbox message.
+Сервис ноды, который не желает участвовать в процессе подтверждения может игнорировать входящие сообщения и не производить валидацию сообщений, но в этом случае, её рейтинг будет на нулевом уровне и для того, чтобы осуществить свои транзакции, владельцу кошелька придется заплатить сети некоторую комиссию за получение необходимого количества branch ссылок.
 
-The node service that does not wish to participate in the confirmation process may ignore incoming messages and not perform message validation, but in this case its ranking will be zero, and in order to carry out its transactions, the owner of the wallet will have to pay the network a commission to receive the necessary quantity of branch messages.
+Здесь будет уместным пояснить о реализуемом алгоритме BFT - виртуальном голосовании. Здесь в полной мере реализуется  основная причина, по которой в модель базового алгоритма сети была включена IPFS. Валидированные сообщения, размещаемые сервисами нод в собственные разделы outbox, являются общедоступными для чтения в распределенной сети, и кошелек сервиса ноды при подсчете баланса, оценивая количество ссылок на хеши сервисов валидировавших их нод при построении дерева транзакций, вычисляют необходимый консенсус при принятии решения.
 
-Here it will be appropriate to describe the virtual voting algorithm BFT. Here we can clearly see the basic reason why the IPFS was included in the basic algorithm model. Validated messages posted by node services in their own outbox are generally accessible to be read in a distribution network, as is the node service wallet when calculating the balance, assessing the number of links to hash services of nodes they have validated while constructing a transaction tree, and estimate the consensus needed for decision making.
+Памятуя о главном преимуществе DLT - быстрота выполнения транзакций, могут возникнуть сомнения о возможности базового алгоритма сети его реализовать. Но тут ключевым фактором, гарантирующим запас по скорости, является подсчет рейтинга. Как это работает?
 
-Bearing in mind the main advantage of DLT — the speed of carrying out transactions — doubts may arise about the possibility of implementing the network's basic algorithm. But the key factor guarantying the speed margin is its ranking calculation. How does this work?
+Сервис ноды, выполняющий базовые потребности сети эффективно, как только может, и таким образом поддерживающий её устойчивость и производительность, с учетом неуклонно возрастающего рейтинга (об этом выше), ранжируется в списке рассылки в первых строках. Соответственно, используя тот же алгоритм, этот сервис формирует свой список рассылки, в топ которого попадают такие же эффективные сервисы. Таким образом, динамически - так как рейтинг субстанция переменчивая, - в сети формируется виртуальная подсеть эффективных сервисов, на основании голосов которых можно построить более быстрое виртуальное голосование. Ключевой фразой здесь является -  **_динамический_**. Сеть для предотвращения монополизации консенсуса должна автоматически контролировать баланс участников лидерских подсетей.
 
-The node service that performs the network's needs as effectively as it can, and which thus supports its stability and productivity, factoring in its steadily rising ranking (see above) is ranked in the first lines in the mailing list. Correspondingly, using the same algorithm, this service forms its own mailing list, the top of which includes services that are equally effective. Thus, since the ranking is changeable, the network dynamically forms a virtual subnetwork of effective services, on the basis of whose votes quicker virtual voting can be constructed. The key word here is **_dynamic_**. The network for preventing the monopolisation of consensus should automatically control the balance of the participants of leader subnetworks.
+## Алгоритм подсчета рейтинга и немного простых формул
 
-## The algorithm for the ranking calculation and a few simple formulae
+Алгоритм подсчета рейтинга носит синтетический характер и его главным назначением является динамический подсчет рейтинга сервиса ноды  с одновременной компенсацией этого значения по техническим и информационным показателям.
 
-The algorithm for the ranking calculation has a synthetic character and its main purpose is the dynamic ranking calculation of the node service with a simultaneous compensating this calculation under technical and information indicators.
+Величина функции является безразмерной и имеет физический смысл как относительная доля вклада конкретной ноды в суммарный рейтинг нод сети. Расчет непрерывной функции значения рейтинга ноды **_R_** в момент времени **_t - R(t)_** затруднен тем, что текущего его значения в дискретной системе отсчета не существует. Т.е., можно говорить, что значение функции верно в моменты времени, совпадающие с изменениями в системе - в сети нод, т.е. `t_(-n),t_0...t_∞`. В данной методике на основе анализа показателей, от которых зависит значение функции в дискретные моменты на выбранном историческом периоде и предположения о существовании зависимости суммарного рейтинга сети от рыночных настроений, делается предположение о возможности кратковременного полиномиального прогнозирования его значения   на основе статистических сетевых данных.
 
-The function value is immeasurable and has a physical meaning as a relative share of the input of a specific node into the total ranking of the network node. The continuous function calculation for node **_R_** rating value at the moment of time **_t - R(t)_** is challenged by the fact that in the current discrete system its current value does not exist. In other words, we can say that the value of the function is correct at moments that coincide with changes in the system, in the node network, for instance. `t_(-n),t_0...t_∞`. This modality,  based on an analysis of indicators on which the function value in discrete moments in a selected historical period depends, and the presumption that the total network ranking may depend on market moods, allows for the presumption that a transient *polynomial forecasting* of its value on the basis of statistical network data is possible.
+В каждый период отсчета работы сети, значение рейтинга ноды зависит от нескольких параметров:
 
-In each period of calculating the work of the network the node ranking value depends on several parameters:
+*1. Относительного вклада мощности ноды в суммарную мощность сети.*
 
-*1. The relative node capacity input into the total capacity of the network.*
-
-Here it is worth mentioning that most information exchange and data verification algorithms in a distributed network provide for an equal involvement of its active members in this process.   Thus the **_capacity_**  of a specific node, as a full participant, impacts the average time for processing information. Its relative value depends on the total computing capacity of the **_P_**  network, which can be represented as the sum of discrete values of the network node capacity:
+Здесь стоит упомянуть тот факт, что большинство алгоритмов информационного обмена и верификации данных в распределенной сети предусматривает равноправное участие её активных членов в этом процессе.   Посему **_мощность_**  конкретной ноды, как полноценного участника, влияет на среднее время обработки информации. Её относительное значение зависит от суммарной вычислительной мощности сети -  **_P_**  , которую можно представить, как сумму дискретных значений мощности нод сети:
 
 	P = ∑_(i=0)^M Pi(T=〖tj)〗_                                                                             (1.1)
 
-Where **_M_**  is the number of nodes in the network, *Pi* the computing power of the *i* node at discrete moment *T* -  from the *j* event.
+Где **_M_**   количество нод в сети, *Pi* вычислительная мощность *i*- ой ноды в дискретный момент *T* - из *j*-го события.
 
-At the same time the **_relative node capacity input_** into the total computing capacity of the network looks like this:
+При этом **_относительный вклад мощности ноды_** в суммарную вычислительную мощность сети выглядит как:
 
 	P_o  =〖P_i (T=〖t_j)〗_ 〗_ /P                                                                         (1.2)
 
-**Note:** *It is evident that an increase in the total capacity of the node network with its constant value at a specific node leads to the reduction of the value of its relative weight in the system, which must be factored in when considering the impact on the resulting indicator.*
+**Примечание:** *Очевидно, что увеличение суммарной мощности сети нод при постоянном её значении у конкретной ноды приводит к уменьшению значения её относительного веса в системе, что необходимо учесть при  учете влияния на результирующий показатель.*
 
-*2.  Of the relative speed on the network's operation.*
+*2.  Относительной скорости работы сети.*
 
-The value *V_N* determined by the number of confirmed packets of data transfer over a unit of time in the network in which the node operates will obviously impact on its ranking. Bearing in mind that this method yields a relative value, it would be feasible to normalize this parameter *V_o* either towards the middle of its network value or to the maximum value. This choice can be made by experimental means, by calculating the level of indeterminacy of the value of the node ranking function.
+Величина  [img]http://www.sciweavers.org/tex2img.php?eq=%20V_%7BN%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0[/img] determined by the number of confirmed packets of data transfer over a unit of time in the network in which the node operates will obviously impact on its ranking. Bearing in mind that this method yields a relative value, it would be feasible to normalize this parameter *V_o* either towards the middle of its network value or to the maximum value. This choice can be made by experimental means, by calculating the level of indeterminacy of the value of the node ranking function.
 
 
 *3.  Of the relative input of the node into the information exchange — activity.*
