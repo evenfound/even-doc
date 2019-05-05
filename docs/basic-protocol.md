@@ -98,7 +98,6 @@ In each period of calculating the work of the network the node ranking value dep
 Here it is worth mentioning that most information exchange and data verification algorithms in a distributed network provide for an equal involvement of its active members in this process.   Thus the **_capacity_**  of a specific node, as a full participant, impacts the average time for processing information. Its relative value depends on the total computing capacity of the **_P_**  network, which can be represented as the sum of discrete values of the network node capacity:
 
 	P = ∑_(i=0)^M Pi(T=〖tj)〗_                                                                             (1.1)
-![equation](^{a}\sum \Cap \prod \prod)
 
 Where **_M_**  is the number of nodes in the network, *Pi* the computing power of the *i* node at discrete moment *T* -  from the *j* event.
 
