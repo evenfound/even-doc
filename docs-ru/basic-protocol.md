@@ -119,7 +119,8 @@ IPFS объединяет в себе шардинг и децентрализо
 ![Screenshot](/docs-ru/_images/3n.png)
 (1.3)
 
-![img](http://bit.ly/2vC9l7r)                                                                        (1.4)
+
+   ![img](http://bit.ly/2vC9l7r)                                                                        (1.4)
 
 
 
