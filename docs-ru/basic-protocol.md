@@ -119,6 +119,9 @@ IPFS объединяет в себе шардинг и децентрализо
 ![Screenshot](/docs-ru/_images/3n.png)
 (1.3)
 
+	![img](http://bit.ly/2vC9l7r)                                                                        (1.4)
+
+
 
 	K_o=K_i/K ∫_(t_(j-1))^(t_j)  ((V_o (t)+P_o (t))dt)/2                                                 (1.4)
 
