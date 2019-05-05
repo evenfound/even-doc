@@ -16,6 +16,10 @@ body {
     display: none;
 }
 
+.fa {
+    font-family: inherit;
+}
+
 .fa:before, 
 .icon:before {
     font-family: "FontAwesome";
