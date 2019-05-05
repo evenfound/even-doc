@@ -1,8 +1,8 @@
-## EVEN Documentation Page Pull
+## Экоситема документации EVEN
 
-> The explanation technology and understanding basics algorithm's of all issues.
+> Описание технологий и понимание базовых алгоритмов сети.
 
 
-## Community
+## Сообщество
 
-Users and the development team are usually in the [GitHub](https://github.com/evenfound).
+Пользователи и команда разработчиков обычно общаются на [GitHub](https://github.com/evenfound).
