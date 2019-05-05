@@ -18,7 +18,7 @@ In classical blockchain technology transactions are intially grouped into a bloc
  
 In the DAG model (Directed Acyclic Graph) each transaction is immediately added to a graph compiled from many transactions recorded not consecutively, but simultaneously. Here there are no blocks, and therefore there are no problems with size.
 
-![Screenshot](/_images/2.png)
+![Screenshot](/docs/_images/2.png)
 
 Within this structure users themselves support the network. Before sending a transaction no fewer than one and generally two preceding transactions need to be confirmed. That is exactly why there are no miners or masternodes here.
 
@@ -118,7 +118,7 @@ A relative share of the input of a specific node into information exchange  *K_o
 
 Here it should be noted that a substantial impact on this indicator is made by *1* and *2* above, which allows us to assume its integral nature. In other words, its value in a discrete period of time of a *j* event is the value of the figure's area limited by the function of the change in the total information exchange over a period of time *Δt* depending on the speed of the change of the *i* node input, which is determined by the derivative from the function of the change in relative values *1* and *2*:
 
-![Screenshot](/_images/3n.png)
+![Screenshot](/docs/_images/3n.png)
 (1.3)
 
 	K_o=K_i/K ∫_(t_(j-1))^(t_j)  ((V_o (t)+P_o (t))dt)/2                                                 (1.4)
@@ -159,13 +159,13 @@ A more refined task of the modality is in having with high probability an accura
 
 For illustration purposes let us construct a graph of relative dependencies outlined above.
 
-![Screenshot](/_images/4.jpg)
+![Screenshot](/docs/_images/4.jpg)
  
 The diagram shows the dependency of a relative value of a node ranking with regard to others in the network which is measured along the vertical axis from the point where the schedules of the two functions intersect: K, which characterises the relative technical provision of the service and its network parameters, is the hash rate and ping time, and S is the relative balance. The ranking value is at its maximum at the point of intersection, in other words when achieving a balance of two indicators, that is, their mutual offsetting. To put it another way, to raise one's ranking having bought up all tokens or created a super powerful pool of computing capabilities is impossible, the ranking will be offset. In theory this is possible, but this is when there is one node service in the network.
 
 If we depict the graph another way:
 
-![Screenshot](/_images/5.jpg)
+![Screenshot](/docs/_images/5.jpg)
  
 you can see the average calculation of the ranking value as an average value of indicators K and S on the synthetic curve of the values.
 (The original application for demonstrating how the algorithm works can be downloaded from GitHub repository https://github.com/evenfound/even-network/tree/master/r-score-demo).
@@ -189,29 +189,29 @@ Bob doesn't have anything in his wallets:
 
 Alice decides to send Bob 80 information units at the address AHGSHFSJHFSJ…… QQQ .. A message in the EVEN basic protocol is a connected hash with an index of three types of transaction: input, output and meta-transactions. For our scenario it is initially essential to prepare an output transaction, which means that we want to send to Bob's address 80 information units:
 
-![Screenshot](/_images/6.jpg)
+![Screenshot](/docs/_images/6.jpg)
 
 *Draw up a transaction to Bob's address of 80 information units*
 
 Next we will need to draw up an input transaction. In this scenario all four addresses will have to be used which contain ( 10 + 5 + 25 + 60 > 80) information units to perform the output value to the sum of 80.
 
-![Screenshot](/_images/7.png)
+![Screenshot](/docs/_images/7.png)
 
 *Four output transactions which send units to Bob's address*
 
 Next we will need to draw up an input transaction. In this scenario all four addresses will have to be used which contain (10 + 5 + 25 + 60 > 80) information units to perform the output value to the sum of 80. An input transaction should contain the transaction signature, which means that it is essential to add an additional meta-transaction to transfer the signature, it must be added:
 
-![Screenshot](/_images/8.png)
+![Screenshot](/docs/_images/8.png)
 
 *Adding to the meta-transaction message to transfer the signature*
 
 Drawing up the message has not been completed: the packet is unbalanced. Thus four transactions have been formed for 100 information units: 10 + 5 + 25 + 60 = 100 inputs and 80 outputs, with 20 information units remaining that should be returned to the sender's wallet. For this an additional transaction needs to be created. The wallet creates a new address to receive an output transaction for the remainder marked 'unspend':
 
- ![Screenshot](/_images/9.jpg)
+ ![Screenshot](/docs/_images/9.jpg)
 
 After this the balanced packet is received and the conclusion of the message can be begun. For this it is essential to fill out consecutively the transaction indexes, the last index and generate the packet's **hash function** with the help of the **hash function SHA-3**. 
 
-![Screenshot](/_images/10.png)
+![Screenshot](/docs/_images/10.png)
 
 *Filling out the indexes*
 
@@ -219,19 +219,19 @@ After this the balanced packet is received and the conclusion of the message can
 
 The hash function uses a sponge algorithm that will consecutively absorb the transactions, checking each element one by one (the order is important) and then will generate the result. In addition, at the stage of receiving the hash the function will check whether the packet hash is safe or not. If it is not, it will change the obsolete tag of the u-head transaction (a transaction with the index 0) and again generate a hash. After the message hash has been received, it is essential to continue filling out the transactions and receive the following set:
 
-![Screenshot](/_images/11.png)
+![Screenshot](/docs/_images/11.png)
 
 *Filling out the message hashes*
 
 Next it is essential to sign the input transactions with the private key of the corresponding address. For this you can receive the address private key from the key generator with the help of A_SECRET_SEED of the wallet. Using the address secret key, it becomes possible to use the signature fragment generator with the private key and the packet hash in order to receive the transaction signature.
 
-![Screenshot](/_images/12.png) 
+![Screenshot](/docs/_images/12.png) 
 
 *Using the key generator to receive the signature fragment generator.*
   
 ![Screenshot](/_images/13.png) 
 
-![Screenshot](/_images/14.png) 
+![Screenshot](/docs/_images/14.png) 
 
 *Filling in the signature with the appropriate signature fragment generator for each input transaction.*
 
@@ -239,10 +239,10 @@ After this all parts of the message are ready.
 
 Next the chain of its own transactions is connected, through an indication in the trunk field of the hash value of the last input transaction, and the chain of transactions received in the inbox of unconfirmed transactions is connected, through an indication of the hashes of the head transaction messages. Below is the connection scheme draft.
  
-![Screenshot](/_images/15.jpg) 
+![Screenshot](/docs/_images/15.jpg) 
 
 *Scheme of DAG branches connection.*
 
-![Screenshot](/_images/16.png) 
+![Screenshot](/docs/_images/16.png) 
 
 After this the message is ready to be sent.
