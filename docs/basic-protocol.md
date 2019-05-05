@@ -99,8 +99,6 @@ Here it is worth mentioning that most information exchange and data verification
 
 	P = ∑_(i=0)^M Pi(T=〖tj)〗_                                                                             (1.1)
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=%20%5Clim_%7Ba%20%5Crightarrow%20b%7D%20%20%5Cfrac%7B%5Cpartial%5Enf%7D%7B%5Cpartial%20x%5En%7D%20%20%5Csqrt%5Bn%5D%7Bab%7D%20%20%5Coverrightarrow%7Bab%7D%20&bc=White&fc=Black&im=png&fs=12&ff=arev&edit=0)
-
 Where **_M_**  is the number of nodes in the network, *Pi* the computing power of the *i* node at discrete moment *T* -  from the *j* event.
 
 At the same time the **_relative node capacity input_** into the total computing capacity of the network looks like this:
