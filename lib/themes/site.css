@@ -37,4 +37,15 @@ body {
 
 .editLink {
     text-decoration: none!important;
+    position: fixed;
+    z-index: 31;
+    top: calc(135px - (0.5em * var(--base-line-height)));
+    right: 80px;
+}    
+
+.app-nav {
+    position: fixed;
+}
+.github-corner {
+    position: fixed;
 }
