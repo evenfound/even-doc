@@ -16,6 +16,10 @@ body {
     display: none;
 }
 
+.app-name-link {
+    font-weight: bold;
+}
+
 .fa {
     font: inherit;
 }
