@@ -119,6 +119,7 @@ IPFS объединяет в себе шардинг и децентрализо
 ![Screenshot](/docs-ru/_images/3n.png)
 (1.3)
 
+	K_o=K_i/K ∫_(t_(j-1))^(t_j)  ((V_o (t)+P_o (t))dt)/2                                                 (1.4)
 
 
 On examining the dependency schedule it can be assumed that the endless increase in node capacity does not entail an endless increase in the *relative input share* and the principle of its distribution, for instance, on a polynomial prognosis, will be of an exponential character, which can be used to offset its impact on distribution, factoring in the weight of the following indicators.
