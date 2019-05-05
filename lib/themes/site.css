@@ -38,10 +38,18 @@ body {
 .editLink {
     text-decoration: none!important;
     position: fixed;
-    z-index: 31;
+    z-index: 29;
     top: calc(135px - (0.5em * var(--base-line-height)));
     right: 80px;
 }    
+
+@media (max-width: 1280px) {
+    .editLink {
+        position: relative;
+        top: auto;
+        right: auto;
+    }    
+}
 
 .app-nav {
     position: fixed;
