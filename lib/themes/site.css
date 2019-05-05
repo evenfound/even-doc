@@ -28,8 +28,13 @@ body {
     font-weight: normal;
     line-height: 1;
     text-decoration: inherit;
+    font-size: 1.1em;
 }
 
 .fa-github:before, .icon-github:before {
     content: "";
+}
+
+.editLink {
+    text-decoration: none!important;
 }
