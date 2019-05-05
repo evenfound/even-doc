@@ -17,7 +17,7 @@ body {
 }
 
 .fa {
-    font-family: inherit;
+    font: inherit;
 }
 
 .fa:before, 
