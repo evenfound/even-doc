@@ -121,8 +121,6 @@ IPFS объединяет в себе шардинг и децентрализо
 
 ![img](http://www.sciweavers.org/tex2img.php?eq=%20%20K_%7B0%7D%20%3D%20%5Cfrac%7B%20K_%7Bi%7D%20%7D%7B%20K%20%7D%20%20%20%5Cint_%7Bt_%7Bj-1%7D%7D%5E%7Bt_%7Bj%7D%7D%20%5Cfrac%7B%20%28V_%7B0%7D%28t%29%2BP_%7B0%7D%28t%29%29dt%7D%7B2%7D%20%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)                                                 (1.4)
 
-[img]http://www.sciweavers.org/tex2img.php?eq=%20%20K_%7B0%7D%20%3D%20%5Cfrac%7B%20K_%7Bi%7D%20%7D%7B%20K%20%7D%20%20%20%5Cint_%7Bt_%7Bj-1%7D%7D%5E%7Bt_%7Bj%7D%7D%20%5Cfrac%7B%20%28V_%7B0%7D%28t%29%2BP_%7B0%7D%28t%29%29dt%7D%7B2%7D%20%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0[/img]
-
 On examining the dependency schedule it can be assumed that the endless increase in node capacity does not entail an endless increase in the *relative input share* and the principle of its distribution, for instance, on a polynomial prognosis, will be of an exponential character, which can be used to offset its impact on distribution, factoring in the weight of the following indicators.
 
 *4.  Setting totals.*
