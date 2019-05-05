@@ -107,19 +107,19 @@ IPFS объединяет в себе шардинг и децентрализо
 
 *2.  Относительной скорости работы сети.*
 
-Величина  ![img](http://www.sciweavers.org/tex2img.php?eq=%20V_%7BN%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0) determined by the number of confirmed packets of data transfer over a unit of time in the network in which the node operates will obviously impact on its ranking. Bearing in mind that this method yields a relative value, it would be feasible to normalize this parameter *V_o* either towards the middle of its network value or to the maximum value. This choice can be made by experimental means, by calculating the level of indeterminacy of the value of the node ranking function.
+Величина  ![img](http://www.sciweavers.org/tex2img.php?eq=%20V_%7BN%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0) которая определяется количеством подтвержденных пакетов передачи данных за единицу времени в сети, в которой работает нода, очевидно, будет влиять на её рейтинг. Памятуя о том, что результатом данной методики является величина относительная, целесообразно пронормировать данный показатель Vo либо к среднему его значению по сети, либо к максимальному значению. Данный выбор можно сделать экспериментальным путем, при вычислении уровня неопределенности значения функции рейтинга ноды.
 
 
-*3.  Of the relative input of the node into the information exchange — activity.*
+*3. Относительного вклада ноды в информационный обмен - активности.*
 
-A relative share of the input of a specific node into information exchange  *K_o* characterizes its activity. It depends on the total value of the volume of information exchange — the number of units of information К, transferred in the distribution network over an interval of time by active network participants calculated statistically, and the volume of the input of the *K_i  i* node into this exchange.
+Относительная доля вклада конкретной ноды в информационный обмен Ko характеризует её активность. Он зависит от суммарного значения объема информационного обмена - количества единиц информации  *K* , передаваемой в распределенной сети за интервал времени активными участниками сети, подсчитанного статистически, и объема вклада *K_i  i* -ой ноды в этот обмен.
 
-Here it should be noted that a substantial impact on this indicator is made by *1* and *2* above, which allows us to assume its integral nature. In other words, its value in a discrete period of time of a *j* event is the value of the figure's area limited by the function of the change in the total information exchange over a period of time *Δt* depending on the speed of the change of the *i* node input, which is determined by the derivative from the function of the change in relative values *1* and *2*:
+Здесь следует заметить, что существенное влияние на данный показатель оказывают 1 и 2 из упомянутых выше, что позволяет предположить его интегральную природу. То-есть, его значение в дискретный период времени *j* го события есть величина площади фигуры, ограниченной функцией изменения суммарного информационного обмена за период времени *Δt*  в зависимости от скорости изменения вклада *i* -ой ой ноды, которая определяется производной от функций изменения относительных величин 1 и 2:
 
 ![Screenshot](/_images/3n.png)
 (1.3)
 
-	K_o=K_i/K ∫_(t_(j-1))^(t_j)  ((V_o (t)+P_o (t))dt)/2                                                 (1.4)
+	![img](http://www.sciweavers.org/tex2img.php?eq=%20%20K_%7B0%7D%20%3D%20%5Cfrac%7B%20K_%7Bi%7D%20%7D%7B%20K%20%7D%20%20%20%5Cint_%7Bt_%7Bj-1%7D%7D%5E%7Bt_%7Bj%7D%7D%20%5Cfrac%7B%20%28V_%7B0%7D%28t%29%2BP_%7B0%7D%28t%29%29dt%7D%7B2%7D%20%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)                                                 (1.4)
 
 On examining the dependency schedule it can be assumed that the endless increase in node capacity does not entail an endless increase in the *relative input share* and the principle of its distribution, for instance, on a polynomial prognosis, will be of an exponential character, which can be used to offset its impact on distribution, factoring in the weight of the following indicators.
 
