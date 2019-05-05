@@ -107,7 +107,7 @@ IPFS объединяет в себе шардинг и децентрализо
 
 *2.  Относительной скорости работы сети.*
 
-Величина  [img]http://www.sciweavers.org/tex2img.php?eq=%20V_%7BN%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0[/img] determined by the number of confirmed packets of data transfer over a unit of time in the network in which the node operates will obviously impact on its ranking. Bearing in mind that this method yields a relative value, it would be feasible to normalize this parameter *V_o* either towards the middle of its network value or to the maximum value. This choice can be made by experimental means, by calculating the level of indeterminacy of the value of the node ranking function.
+Величина  ![img](http://www.sciweavers.org/tex2img.php?eq=%20V_%7BN%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0) determined by the number of confirmed packets of data transfer over a unit of time in the network in which the node operates will obviously impact on its ranking. Bearing in mind that this method yields a relative value, it would be feasible to normalize this parameter *V_o* either towards the middle of its network value or to the maximum value. This choice can be made by experimental means, by calculating the level of indeterminacy of the value of the node ranking function.
 
 
 *3.  Of the relative input of the node into the information exchange — activity.*
