@@ -1,2 +1,0 @@
-
-- [Базовый протокол сети EVEN](ru/basic-protocol.md)
