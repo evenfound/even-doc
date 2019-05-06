@@ -122,7 +122,7 @@ IPFS объединяет в себе шардинг и децентрализо
 
 
 
-![img](/docs-ru/_images/2019-05-06&#32;at&#32;08-37-52.png)   
+![img](/docs-ru/_images/image00007.png)   
 
 
 On examining the dependency schedule it can be assumed that the endless increase in node capacity does not entail an endless increase in the *relative input share* and the principle of its distribution, for instance, on a polynomial prognosis, will be of an exponential character, which can be used to offset its impact on distribution, factoring in the weight of the following indicators.
