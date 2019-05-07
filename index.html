@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>        
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="lib/themes/site.css">
         <style>
@@ -22,18 +23,14 @@
         <script>
             window.$docsify = {
                 alias: {
-                    '.*?/awesome': 'https://github.com/evenfound/even-doc/README.md',
-//                    '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
-                    '/.*/_navbar.md': '/_navbar.md',
-//                    '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
-//                    '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
-                    '/ru/(.*)': 'https://raw.githubusercontent.com/evenfound/even-doc/master/docs-ru/$1',
-//                    '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
-                    '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
+                    '.*?/awesome': 'https://raw.githubusercontent.com/evenfound/docs-en/master/README.md',
+                    '.*/_navbar.md': '/_navbar.md',
+                    '/ru/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-ru/master/$1',
+                    '/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-en/master/$1',
                 },
                 repo: 'https://github.com/evenfound/even-doc',
                 auto2top: true,
-                basePath: '/docs/',
+                basePath: '/docs',
                 coverpage: false,
                 executeScript: true,
                 loadSidebar: true,
@@ -89,6 +86,7 @@
         <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
         <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
         <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
     </body>
 
 </html>
