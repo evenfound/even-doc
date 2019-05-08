@@ -21,12 +21,13 @@
     <body>
         <div id="app"></div>
         <script>
+            branch = 'master';
             window.$docsify = {
                 alias: {
-                    '.*?/awesome': 'https://raw.githubusercontent.com/evenfound/docs-en/master/README.md',
+                    '.*?/awesome': 'https://raw.githubusercontent.com/evenfound/docs-en/'+ branch +'/README.md',
                     '.*/_navbar.md': '/_navbar.md',
-                    '/ru/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-ru/master/$1',
-                    '/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-en/master/$1',
+                    '/ru/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-ru/'+ branch +'/$1',
+                    '/(.*)': 'https://raw.githubusercontent.com/evenfound/docs-en/'+ branch +'/$1',
                 },
                 repo: 'https://github.com/evenfound/even-doc',
                 auto2top: true,
@@ -66,10 +67,10 @@
                             if (/githubusercontent\.com/.test(vm.route.file)) {
                                 url = vm.route.file
                                         .replace('raw.githubusercontent.com', 'github.com')
-                                        .replace(/\/master/, '/blob/master')
+                                        .replace(branch, 'blob/'+ branch)
                                 console.log("1:" + url);
                             } else {
-                                url = 'https://github.com/evenfound/even-doc/blob/master/docs/' + vm.route.file
+                                url = 'https://github.com/evenfound/even-doc/blob/'+ branch +'/docs/' + vm.route.file
                             }
 
                             var editHtml = '[  Edit Document](' + url + ')\n'
